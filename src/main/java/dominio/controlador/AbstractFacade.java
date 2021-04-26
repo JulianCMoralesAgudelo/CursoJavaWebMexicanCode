@@ -7,6 +7,7 @@ package dominio.controlador;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -44,6 +45,21 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
+    public boolean findByUserPassword(String usr, String password) {
+
+        Query q = getEntityManager().createNamedQuery("Users.findByUserAndPassword").setParameter("usr", usr).setParameter("password", password);
+
+        try {
+            if (String.valueOf(q.getSingleResult()).contains(usr) && String.valueOf(q.getSingleResult()).contains(password)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.getMessage();
+            return false;
+        }
+        return true;
+    }
+
     public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
@@ -60,5 +76,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
 }

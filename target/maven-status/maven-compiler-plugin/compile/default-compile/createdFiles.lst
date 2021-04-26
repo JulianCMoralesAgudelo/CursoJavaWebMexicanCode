@@ -1,0 +1,7 @@
+dominio/controlador/AbstractFacade.class
+dominio/login/JavaEE8Resource.class
+dominio/controlador/UsersFacade.class
+dominio/modelo/Users.class
+dominio/login/Servlet.class
+dominio/login/UsersEndPoint.class
+dominio/login/JAXRSConfiguration.class

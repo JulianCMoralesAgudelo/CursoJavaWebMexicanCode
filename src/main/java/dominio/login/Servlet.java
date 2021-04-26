@@ -36,7 +36,7 @@ public class Servlet extends HttpServlet {
        
         
        
-     /*   try (PrintWriter out = response.getWriter()) {
+    /*   try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code.
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -58,8 +58,10 @@ public class Servlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @EJB
     UsersFacade usersService;
+    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -92,14 +94,13 @@ public class Servlet extends HttpServlet {
         request.setAttribute("password", request.getParameter("password"));
         //Users userO = new Users(user,password);
 
-        usersService.findUsrPassword(user, password);
+        usersService.findByUserPassword(user, password);
 
         //Validar por Usuario
         //    String user1 = usersService.findUsrPassword(user, password);
-        if (usersService.findUsrPassword(user, password)) {
+        if (usersService.findByUserPassword(user, password)) {
             request.getRequestDispatcher("/welcome.jsp").forward(request, response);
         } else {
-
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 
         }
